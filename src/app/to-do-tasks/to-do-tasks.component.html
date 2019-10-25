@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="col-md-12">
+      <br />
+      <br />
+
+    <h2 align="center">Tasks</h2>
+    <br />
+    <br />
+    <br />
+    
+    <table class="table table-bordered table-striped table-hover">
+    
+        <thead>
+          <tr>
+            <th class="text-center">Task Name</th>
+            <th class="text-center">Description</th>       
+            <th class="text-center">Status</th>       
+            <th class="text-center">Date Created</th>       
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          <tr *ngFor="let todotask of todotasks">       
+            <td>{{ todotask.name }}</td>
+            <td>{{ todotask.description }}</td>       
+            <td>{{ todotask.status }}</td>
+            <td>{{ todotask.date | date: 'EE, MMM dd' }}</td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="showEditForm(todotask)">
+                <i class="glyphicon glyphicon-pencil"></i>
+              </button>
+              <button class="btn btn-danger" (click)="removeToDoTask(todotask)">
+                <i class="glyphicon glyphicon-remove"></i>
+              </button>
+            </td>       
+          </tr>
+        </tbody>
+    
+      </table>
+    
+      <button class="btn btn-success" (click)="showNewForm()">
+        <i class="glyphicon glyphicon-plus"></i>
+      </button>
+      <br />
+      <br />
+      <br />
+    <form *ngIf="showForm()" [formGroup]="formGroup" (ngSubmit)="saveToDoTask(formGroup.value)">
+          <h2>{{headerText}}</h2>
+          <br />
+          <br />
+          <p>Task Name 
+            <input type="text" name="name" formControlName="name" />
+          </p>
+          <p>Description 
+            <input type="text" name="description" formControlName="description"/>
+          </p>
+          <p>Status 
+            <select (change)="selectChangeHandler($event)" placeholder="Please Select" formControlName="status">
+              <option value="Please select">Please Select</option>
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Done">Done</option>
+            </select>
+          </p>
+          <p>Date Created 
+            <input type="date" name="date" formControlName="date" />
+          </p>
+          <br />
+          <br />
+          <p>
+            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="button" class="btn btn-warning" value="Cancel" (click)="cancelEditToDoTask()">
+          </p>
+    </form>
+  </div>
+</div>

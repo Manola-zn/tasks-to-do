@@ -1,0 +1,7 @@
+export interface ToDoTask {
+    id: number;
+    name: string;
+    description: string;
+    status: string;
+    date: Date;
+  }
